@@ -1,8 +1,12 @@
-// Use Express in the future
-const http = require('http').createServer();
-const io = require('socket.io')(http, {
+const express = require('express');
+const app = express();
+const http = require('http');
+const server = http.createServer(app);
+const socket = require('socket.io')
+const io = socket(server, {
   cors: { origin: "*" }
 });
+const PORT = 3000
 
 io.on('connection', socket => {
   console.log('A user connected');
@@ -13,4 +17,4 @@ io.on('connection', socket => {
   });
 });
 
-http.listen(3000, () => console.log('listening on port http://localhost:3000'));
+server.listen(PORT, () => console.log(`listening on port ${PORT}`));
